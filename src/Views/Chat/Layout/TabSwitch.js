@@ -15,10 +15,10 @@ import DMS from "../DirectMessages/DMS"
 import Groups from "../Groups/Groups"
 const TabSwitch = () => {
   let { path, url } = useRouteMatch()
-
   const location = useLocation()
-
-  const [currentTab, setcurrentTab] = useState(`${path}`)
+  console.log("amd url: ", url)
+  console.log("amd path: ", path, location)
+  const [currentTab, setcurrentTab] = useState(`${url}/dm`)
 
   useEffect(() => {
     if (location?.pathname) setcurrentTab(location?.pathname)
@@ -27,15 +27,15 @@ const TabSwitch = () => {
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <Tabs value={currentTab}>
-        <Tab label="Direct Messages" value={`${path}`} to={`${path}`} onClick={(e) => setcurrentTab(`${path}`)} component={Link} />
+        <Tab label="Direct Messages" value={`${url}/dm`} to={`${url}/dm`} onClick={(e) => setcurrentTab(`${url}/dm`)} component={Link} />
         <Tab label="Groups" value={`${url}/group`} to={`${url}/group`} onClick={(e) => setcurrentTab(`${url}/group`)} component={Link} />
       </Tabs>
 
       <Switch>
-        <Route exact path={`${path}`}>
+        <Route path={`${path}/dm`}>
           <DMS />
         </Route>
-        <Route exact path={`${path}/group`}>
+        <Route path={`${path}/group`}>
           <Groups />
         </Route>
       </Switch>

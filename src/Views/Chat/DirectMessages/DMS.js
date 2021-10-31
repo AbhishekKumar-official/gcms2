@@ -49,20 +49,21 @@ function ListItemLink(props) {
 }
 const DMS = ({ match }) => {
   let { path, url } = useRouteMatch()
+  console.log("pathdsds: ", path, url)
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <ListItemLink avatar="" primary="Albrto" to={`${url}/Albrto`} />
       <ListItemLink avatar="" primary="freddy" to={`${url}/freddy`} />
       <ListItemLink avatar="" primary="Geeks" to={`${url}/Geeks`} />
       <ListItemLink avatar="" primary="Normn" to={`${url}/Normn`} />
-      <Switch>
+      {/* <Switch>
         <Route exact path={`${path}`}>
           <CatHistory />
         </Route>
         <Route exact path={`${path}/:name`}>
           <CatHistory />
         </Route>
-      </Switch>
+      </Switch> */}
     </List>
   )
 }
