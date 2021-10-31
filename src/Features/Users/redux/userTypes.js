@@ -1,0 +1,5 @@
+export const usersActionType = {
+  SET_USER_BEGIN: "SET_USER_BEGIN",
+  SET_USER_SUCCESS: "SET_USER_SUCCESS",
+  SET_USER_FAILURE: "SET_USER_FAILURE",
+}
