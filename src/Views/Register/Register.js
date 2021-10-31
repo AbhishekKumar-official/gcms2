@@ -16,7 +16,7 @@ const Register = () => {
 
   const handleClickRegister = () => {
     console.log("Register Vals", { firstname, email, password, confirmpassword })
-    hanndleCreateUserWithEmailAndPassword(email, password)
+    hanndleCreateUserWithEmailAndPassword(email, password, firstname)
   }
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
-
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth"
+import { getDatabase, ref, push, onValue } from "firebase/database"
+import { setGroupList } from "./Views/Chat/Groups/redux/groupActions"
+import md5 from "md5"
 const firebaseConfig = {
   apiKey: "AIzaSyCDCdokzvjQ46QGMzrE0XLS9g7QRhmcWG0",
   authDomain: "slack-412f3.firebaseapp.com",
@@ -15,10 +17,15 @@ export const firebaseApp = initializeApp(firebaseConfig)
 
 //register with email and password
 const firebaseAuth = getAuth()
-export const hanndleCreateUserWithEmailAndPassword = async (email, password) => {
+const firebaseDatabase = getDatabase()
+const refPeopleCollection = ref(firebaseDatabase, "people")
+const refGroupsCollection = ref(firebaseDatabase, "groups")
+
+export const hanndleCreateUserWithEmailAndPassword = async (email, password, firstname) => {
   createUserWithEmailAndPassword(firebaseAuth, email, password)
     .then((userCredential) => {
       const user = userCredential.user
+      handleUpdateUserProfile(firstname)
       console.log("Registeruser: ", user)
     })
     .catch((error) => {
@@ -27,6 +34,43 @@ export const hanndleCreateUserWithEmailAndPassword = async (email, password) => 
       const errorMessage = error.message
       console.log("errorMessage: ", errorMessage)
     })
+}
+
+export const HandleAddGroup = (channelName, Descripttion) => {
+  push(refGroupsCollection, {
+    channelName: channelName,
+    descripttion: Descripttion,
+    createdBy: {
+      name: firebaseAuth.currentUser.displayName,
+      id: firebaseAuth.currentUser.uid,
+      profilePic: firebaseAuth.currentUser.photoURL,
+      email: firebaseAuth.currentUser.email,
+    },
+  })
+    .then((res) => console.log("created channe", res))
+    .catch((err) => console.log(err))
+}
+
+export const fetchAllGroups = (dispatch) => {
+  onValue(refGroupsCollection, (snapshot) => {
+    const data = snapshot.val()
+    dispatch(setGroupList(data))
+  })
+}
+const handleUpdateUserProfile = (firstname) => {
+  updateProfile(firebaseAuth.currentUser, {
+    displayName: firstname,
+    photoURL: `http://gravatar.com/avatar/${md5(firebaseAuth.currentUser.email)}?d=identicon`,
+  })
+    .then(() => {
+      //saving in realtime DB
+      push(refPeopleCollection, {
+        username: firstname,
+        email: firebaseAuth.currentUser.email,
+        profile_picture: firebaseAuth.currentUser.photoURL,
+      })
+    })
+    .catch((err) => console.log(err))
 }
 export const hanndleSignInWithEmailAndPassword = async (email, password) => {
   return signInWithEmailAndPassword(firebaseAuth, email, password)
