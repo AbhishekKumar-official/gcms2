@@ -17,7 +17,7 @@ import Data from "../Views/Widgets/Data"
 import Chart from "../Views/Widgets/Chart"
 import Register from "../Views/Register/Register"
 import PageNotFound from "../Views/404/PageNotFound"
-import MessengerDemo from "../Features/Chat/Chat"
+import Chat from "../Features/Chat/Chat"
 const Router = () => {
   let routes = [
     {
@@ -110,7 +110,7 @@ const Router = () => {
           index: true,
           element: (
             <AuthProvider>
-              <MessengerDemo />
+              <Chat />
             </AuthProvider>
           ),
         },

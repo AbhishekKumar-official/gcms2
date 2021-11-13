@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 
 import { useNavigate, Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import { setUser } from "../../Features/Users/redux/usersActions"
 const Login = () => {
