@@ -3,12 +3,15 @@ import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
-import { Link } from "react-router-dom"
+
+import { useNavigate, Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import { setUser } from "../../Features/Users/redux/usersActions"
-const Login = ({ history }) => {
+const Login = () => {
   const dispatch = useDispatch()
+
+  const navigator = useNavigate()
 
   const [{ email, password }, setLoginForm] = useState({
     email: "",
@@ -16,7 +19,7 @@ const Login = ({ history }) => {
   })
 
   const handleClickLogin = async () => {
-    dispatch(setUser(true, email, password, history))
+    dispatch(setUser(true, email, password, navigator))
   }
 
   return (

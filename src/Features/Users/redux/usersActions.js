@@ -1,7 +1,8 @@
 import { usersActionType } from "./userTypes"
+
 import { hanndleUserSignOut, hanndleSignInWithEmailAndPassword } from "../../../firebase"
 
-export const setUser = (isUserExist, email, password, history) => {
+export const setUser = (isUserExist, email, password, navigator) => {
   return async (dispatch) => {
     dispatch({
       type: usersActionType.SET_USER_BEGIN,
@@ -14,10 +15,10 @@ export const setUser = (isUserExist, email, password, history) => {
 
         if (response && Object.keys(response).length > 0) {
           sessionStorage.setItem("user", JSON.stringify(response))
-          history.push("/dashboard")
+          navigator("/dashboard")
         }
       } else {
-        await hanndleUserSignOut(history)
+        await hanndleUserSignOut(navigator)
         response = {}
       }
 

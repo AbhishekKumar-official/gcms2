@@ -1,6 +1,7 @@
 import * as React from "react"
 import MenuList from "./MenuList/index"
 import { styled, useTheme } from "@mui/material/styles"
+import { Outlet, useNavigate } from "react-router-dom"
 import Box from "@mui/material/Box"
 import MuiDrawer from "@mui/material/Drawer"
 import MuiAppBar from "@mui/material/AppBar"
@@ -82,8 +83,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 }))
 
 export default function MiniDrawer(props) {
-  const { children, history } = props
   const dispatch = useDispatch()
+  const navigator = useNavigate()
 
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
@@ -97,7 +98,7 @@ export default function MiniDrawer(props) {
   }
 
   const handleSignOut = () => {
-    dispatch(setUser(false, "", "", history))
+    dispatch(setUser(false, "", "", navigator))
   }
 
   return (
@@ -153,7 +154,7 @@ export default function MiniDrawer(props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {children}
+        <Outlet />
       </Box>
     </Box>
   )

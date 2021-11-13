@@ -34,7 +34,7 @@ function ListItemLink(props) {
   const renderLink = React.useMemo(
     () =>
       React.forwardRef(function Link(itemProps, ref) {
-        return <RouterLink to={to} activeClassName="sel" ref={ref} {...itemProps} role={undefined} />
+        return <RouterLink to={to} className={(metaData) => (metaData.isActive ? "sel" : "")} ref={ref} {...itemProps} role={undefined} />
       }),
     [to]
   )

@@ -98,11 +98,11 @@ export const hanndleOnAuthStateChange = () => {
     }
   })
 }
-export const hanndleUserSignOut = async (history) => {
+export const hanndleUserSignOut = async (navigator) => {
   return signOut(firebaseAuth)
     .then(() => {
       sessionStorage.clear()
-      history.push("/")
+      navigator("/")
     })
     .catch((error) => {
       console.log("error: ", error)

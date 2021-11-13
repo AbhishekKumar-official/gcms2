@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
-import { withRouter } from "react-router-dom"
-import Routes from "./Router/Routes"
+
+import Router from "./Router/Router"
 import { fetchAllGroups } from "./firebase"
 import { useDispatch } from "react-redux"
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
   useEffect(() => {
     fetchAllGroups(dispatch)
   }, [])
-  return <Routes />
+  return <Router />
 }
 
-export default withRouter(App)
+export default App
