@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const ChatDialog = () => {
+const ChatDialog = ({ chatID }) => {
   const styles = useStyles()
   return (
     <Box p={"16px 30px 12px 10px"}>
@@ -39,7 +39,7 @@ const ChatDialog = () => {
       <ChatMsg
         avatar={AVATAR}
         messages={[
-          "Im good.",
+          `${chatID}`,
           "See u later.",
           {
             type: "image",

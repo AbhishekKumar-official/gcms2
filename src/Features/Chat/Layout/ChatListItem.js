@@ -1,6 +1,7 @@
 import React from "react"
 import cx from "clsx"
 import { makeStyles } from "@mui/styles"
+import { NavLink as RouterLink } from "react-router-dom"
 import Box from "@mui/material/Box"
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
@@ -64,23 +65,33 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const ChatListItem = ({ bold, active, avatar, name, info, responded, concise }) => {
-  const styles = useStyles({ bold, active })
+const ListItemLink = (props) => {
+  const styles = useStyles()
+  const { channelName } = props
+
+  const renderLink = React.useMemo(
+    () =>
+      React.forwardRef((itemProps, ref) => {
+        return <RouterLink to={channelName} className={(metaData) => (metaData.isActive ? "sel" : "")} ref={ref} {...itemProps} role={undefined} />
+      }),
+    [channelName]
+  )
+
+  return (
+    <ListItem button component={renderLink} className={cx(styles.root, styles.rootHover)}>
+      <Avatar src={channelName} className={styles.avatar} />
+
+      <ListItemText primary={channelName} secondary={channelName} primaryTypographyProps={{ noWrap: true }} secondaryTypographyProps={{ noWrap: true }} classes={{ primary: styles.primary, secondary: styles.secondary }} />
+      <Box position={"relative"}>
+        <MoreHoriz className={styles.more} />
+      </Box>
+    </ListItem>
+  )
+}
+const ChatListItem = (props) => {
   return (
     <Box px={1}>
-      <ListItem className={cx(styles.root, styles.rootHover)}>
-        <Avatar src={avatar} className={styles.avatar} />
-        {!concise && (
-          <>
-            <ListItemText primary={name} secondary={info} primaryTypographyProps={{ noWrap: true }} secondaryTypographyProps={{ noWrap: true }} classes={{ primary: styles.primary, secondary: styles.secondary }} />
-            <Box position={"relative"}>
-              <MoreHoriz className={styles.more} />
-              {bold && <div className={cx(styles.float, styles.dot)} />}
-              {responded && <Avatar src={avatar} className={cx(styles.float, styles.responded)} />}
-            </Box>
-          </>
-        )}
-      </ListItem>
+      <ListItemLink {...props} />
     </Box>
   )
 }

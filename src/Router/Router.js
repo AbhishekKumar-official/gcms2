@@ -18,6 +18,8 @@ import Chart from "../Views/Widgets/Chart"
 import Register from "../Views/Register/Register"
 import PageNotFound from "../Views/404/PageNotFound"
 import Chat from "../Features/Chat/Chat"
+import ChatHistory from "../Features/Chat/Component/ChatHistory"
+
 const Router = () => {
   let routes = [
     {
@@ -37,7 +39,7 @@ const Router = () => {
           ),
         },
         {
-          path: "/register",
+          path: "register",
           element: (
             <AuthRemover>
               <Register />
@@ -107,12 +109,22 @@ const Router = () => {
       ),
       children: [
         {
-          index: true,
+          path: "",
           element: (
             <AuthProvider>
               <Chat />
             </AuthProvider>
           ),
+          children: [
+            {
+              path: ":chatID",
+              element: (
+                <AuthProvider>
+                  <ChatHistory />
+                </AuthProvider>
+              ),
+            },
+          ],
         },
       ],
     },

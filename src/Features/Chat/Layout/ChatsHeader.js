@@ -24,17 +24,10 @@ const useStyles = makeStyles(() => ({
 const ChatsHeader = () => {
   const styles = useStyles()
   return (
-    <Box py={"10px"} px={2} display={"flex"} alignItems={"center"}>
-      <Avatar alt={"me"} src={"https://i.pravatar.cc/300?img=10"} />
+    <Box minWidth={"300px"} p={"16px 0px 8px 0px"}>
       <Typography variant={"h5"} className={styles.middle}>
         <b>Chats</b>
       </Typography>
-      <IconButton className={styles.iconBtn}>
-        <SettingsApplications />
-      </IconButton>
-      <IconButton className={styles.iconBtn}>
-        <Edit />
-      </IconButton>
     </Box>
   )
 }

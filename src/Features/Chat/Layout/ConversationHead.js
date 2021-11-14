@@ -28,27 +28,36 @@ const useStyles = makeStyles(() => ({
       color: "rgb(0, 153, 255)",
     },
   },
+  flecolumn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 }))
 
-const ConversationHead = () => {
+const ConversationHead = ({ chatID }) => {
   const styles = useStyles()
   return (
     <ListItem ContainerComponent={"div"} ContainerProps={{ className: styles.container }} className={styles.root}>
       <ListItemAvatar>
         <Avatar src={"https://i.pravatar.cc/300?img=13"} />
       </ListItemAvatar>
-      <ListItemText primary={"Imaad Casey"} secondary={"active 17m ago"} classes={{ primary: styles.primary, secondary: styles.secondary }} />
-      <ListItemSecondaryAction>
-        <IconButton className={styles.iconBtn}>
-          <Phone />
-        </IconButton>
-        <IconButton className={styles.iconBtn}>
-          <Videocam />
-        </IconButton>
-        <IconButton className={styles.iconBtn}>
-          <Info />
-        </IconButton>
-      </ListItemSecondaryAction>
+      <div className={styles.flecolumn}>
+        <div>
+          <ListItemText primary={chatID} secondary={"active 17m ago"} classes={{ primary: styles.primary, secondary: styles.secondary }} />
+        </div>
+        <div>
+          <IconButton className={styles.iconBtn}>
+            <Phone />
+          </IconButton>
+          <IconButton className={styles.iconBtn}>
+            <Videocam />
+          </IconButton>
+          <IconButton className={styles.iconBtn}>
+            <Info />
+          </IconButton>
+        </div>
+      </div>
     </ListItem>
   )
 }
