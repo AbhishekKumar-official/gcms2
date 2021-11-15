@@ -1,19 +1,16 @@
-// import React from "react"
-// import { useLocation, useResolvedPath } from "react-router-dom"
-// import ChatListItem from "./ChatListItem"
-
-// const ChatList = ({ listGroup }) => {
-//   const location = useLocation()
-
-//   console.log("locationxxxxx: ", location)
-//   return Object.values(listGroup).map((item, index) => <ChatListItem key={index} {...item} />)
-// }
-
-// export default ChatList
 import React from "react"
-
+import Box from "@mui/material/Box"
+import MessengerSearch from "./MessengerSearch"
 const ChatList = () => {
-  return <div>ChatLIst</div>
+  return (
+    <>
+      <div>
+        <Box p={"4px 16px 12px"}>
+          <MessengerSearch placeholder={"Chat search"} />
+        </Box>
+      </div>
+    </>
+  )
 }
 
 export default ChatList

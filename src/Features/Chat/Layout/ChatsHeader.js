@@ -4,10 +4,9 @@ import Box from "@mui/material/Box"
 
 import Typography from "@mui/material/Typography"
 import { NavLink } from "react-router-dom"
-import MessengerSearch from "./MessengerSearch"
-import { useSelector } from "react-redux"
+
 import { Outlet } from "react-router-dom"
-import ChatList from "./ChatList"
+
 const useStyles = makeStyles(() => ({
   middle: {
     flex: "auto",
@@ -26,7 +25,6 @@ const useStyles = makeStyles(() => ({
 }))
 
 const ChatsHeader = () => {
-  const { listGroup } = useSelector((state) => state.groups)
   const styles = useStyles()
   return (
     <>
@@ -39,9 +37,6 @@ const ChatsHeader = () => {
             <NavLink to="group-messages">Groups</NavLink>
           </Typography>
         </div>
-      </Box>
-      <Box p={"4px 16px 12px"}>
-        <MessengerSearch />
       </Box>
 
       {/* <ChatList listGroup={listGroup} /> */}

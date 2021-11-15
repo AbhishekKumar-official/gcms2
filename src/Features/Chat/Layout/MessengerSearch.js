@@ -25,7 +25,7 @@ const useAdornStyles = makeStyles(() => ({
   },
 }))
 
-const MessengerSearch = () => {
+const MessengerSearch = ({ placeholder }) => {
   const styles = useStyles()
   const adornStyles = useAdornStyles()
   return (
@@ -36,7 +36,7 @@ const MessengerSearch = () => {
           <Search />
         </InputAdornment>
       }
-      placeholder={"Search Messenger"}
+      placeholder={placeholder}
     />
   )
 }
