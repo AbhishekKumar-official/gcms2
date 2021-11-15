@@ -47,7 +47,7 @@ export const HandleAddGroup = (channelName, Descripttion) => {
       email: firebaseAuth.currentUser.email,
     },
   })
-    .then((res) => console.log("created channe", res))
+    .then((res) => console.log("created channel", res))
     .catch((err) => console.log(err))
 }
 

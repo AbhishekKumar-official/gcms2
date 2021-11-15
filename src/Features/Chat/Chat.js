@@ -9,6 +9,7 @@ import ChatsHeader from "./Layout/ChatsHeader"
 import ChatList from "./Layout/ChatList"
 import ConversationHead from "./Layout/ConversationHead"
 import { useSelector } from "react-redux"
+import { Outlet } from "react-router-dom"
 //importing compoets...
 import ChatHistory from "./Component/ChatHistory"
 const useStyles = makeStyles(() => ({
@@ -49,12 +50,7 @@ const Chat = () => {
         </div>
 
         <div sidebarId={"primarySidebar"}>
-          <ChatsHeader />
-          <Box p={"4px 16px 12px"}>
-            <MessengerSearch />
-          </Box>
-
-          <ChatList listGroup={listGroup} />
+          <Outlet />
         </div>
       </div>
       <ChatHistory chatID={chatID} />

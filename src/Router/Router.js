@@ -19,6 +19,9 @@ import Register from "../Views/Register/Register"
 import PageNotFound from "../Views/404/PageNotFound"
 import Chat from "../Features/Chat/Chat"
 import ChatHistory from "../Features/Chat/Component/ChatHistory"
+import ChatsHeader from "../Features/Chat/Layout/ChatsHeader"
+import ChatList from "../Features/Chat/Layout/ChatList"
+import GroupList from "../Features/Chat/Layout/GroupList"
 
 const Router = () => {
   let routes = [
@@ -117,12 +120,30 @@ const Router = () => {
           ),
           children: [
             {
-              path: ":chatID",
+              path: "",
               element: (
                 <AuthProvider>
-                  <ChatHistory />
+                  <ChatsHeader />
                 </AuthProvider>
               ),
+              children: [
+                {
+                  path: "direct-messages",
+                  element: (
+                    <AuthProvider>
+                      <ChatList />
+                    </AuthProvider>
+                  ),
+                },
+                {
+                  path: "group-messages",
+                  element: (
+                    <AuthProvider>
+                      <GroupList />
+                    </AuthProvider>
+                  ),
+                },
+              ],
             },
           ],
         },
