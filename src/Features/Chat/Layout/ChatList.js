@@ -1,18 +1,22 @@
 import React, { useEffect } from "react"
 import Box from "@mui/material/Box"
 import { useSelector } from "react-redux"
-import { useParams, useLocation, useNavigate } from "react-router"
+import { useParams, useLocation, useNavigate, Navigate } from "react-router"
 import ChatListItem from "./ChatListItem"
 import MessengerSearch from "./MessengerSearch"
 
 const ChatList = () => {
   const { AllUsers } = useSelector((state) => state.users)
+  console.log("AllUsers?.[0]: ", Object.values(AllUsers)?.[0]?.username)
   const { search } = useLocation()
+  console.log("search: ", search)
   const navigator = useNavigate()
   useEffect(() => {
     let abc = new URLSearchParams(search)
+    console.log("abc: ", abc.get("isDefault"))
+
     if (abc.get("isDefault")) {
-      navigator(`/chat/direct-messages/${Object.values(AllUsers).map((item, index) => item)?.[0]?.username ?? ""}`)
+      navigator(`/chat/direct-messages/${Object.values(AllUsers)?.[0]?.username ?? ""}`)
     }
   }, [])
 

@@ -29,8 +29,8 @@ const ChatsHeader = () => {
   const { AllUsers } = useSelector((state) => state.users)
   const { listGroup } = useSelector((state) => state.groups)
 
-  const [chatID, setChatID] = useState(Object.values(AllUsers).map((item, index) => item)?.[0]?.username ?? "")
-  const [groupID, setGroupID] = useState(Object.values(listGroup).map((item, index) => item)?.[0]?.channelName ?? "")
+  const [chatID, setChatID] = useState(Object.values(AllUsers)?.[0]?.username ?? "")
+  const [groupID, setGroupID] = useState(Object.values(listGroup)?.[0]?.channelName ?? "")
 
   return (
     <>
