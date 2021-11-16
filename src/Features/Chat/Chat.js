@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 import CssBaseline from "@mui/material/CssBaseline"
 import Toolbar from "@mui/material/Toolbar"
 import { makeStyles } from "@mui/styles"
-import { useParams } from "react-router-dom"
+
 import MessengerSearch from "./Layout/MessengerSearch"
 import ChatsHeader from "./Layout/ChatsHeader"
 import ChatList from "./Layout/ChatList"
@@ -32,20 +32,14 @@ const useStyles = makeStyles(() => ({
 
 const Chat = () => {
   const styles = useStyles()
-  const { listGroup } = useSelector((state) => state.groups)
-  let { chatID } = useParams()
 
-  if (!chatID) {
-    chatID = Object.values(listGroup).map((item) => item)?.[0]?.channelName
-  }
-  console.log("chatID: ", chatID)
   return (
     <div className={styles.flex}>
       <CssBaseline />
       <div>
         <div className={styles.header}>
           <Toolbar disableGutters>
-            <ConversationHead chatID={chatID} />
+            <ConversationHead chatID={"chatID"} />
           </Toolbar>
         </div>
 
@@ -53,7 +47,8 @@ const Chat = () => {
           <Outlet />
         </div>
       </div>
-      <ChatHistory chatID={chatID} />
+
+      <ChatHistory />
     </div>
   )
 }

@@ -134,6 +134,16 @@ const Router = () => {
                       <ChatList />
                     </AuthProvider>
                   ),
+                  children: [
+                    {
+                      path: ":chatID",
+                      element: (
+                        <AuthProvider>
+                          <ChatHistory />
+                        </AuthProvider>
+                      ),
+                    },
+                  ],
                 },
                 {
                   path: "group-messages",
@@ -142,6 +152,16 @@ const Router = () => {
                       <GroupList />
                     </AuthProvider>
                   ),
+                  children: [
+                    {
+                      path: ":groupID",
+                      element: (
+                        <AuthProvider>
+                          <ChatHistory />
+                        </AuthProvider>
+                      ),
+                    },
+                  ],
                 },
               ],
             },

@@ -34,3 +34,12 @@ export const setUser = (isUserExist, email, password, navigator) => {
     }
   }
 }
+
+export const fetchAllUsers = (users) => {
+  return async (dispatch) => {
+    dispatch({
+      type: usersActionType.FETCH_ALL_USERS,
+      payload: users,
+    })
+  }
+}

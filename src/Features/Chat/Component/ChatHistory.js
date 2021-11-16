@@ -4,6 +4,8 @@ import ChatBar from "../Layout/ChatBar"
 import ChatDialog from "../Layout/ChatDialog"
 import Box from "@mui/material/Box"
 import { makeStyles } from "@mui/styles"
+import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
 const useStyles = makeStyles(() => ({
   header: {
     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
@@ -21,23 +23,32 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
 }))
-const ChatHistory = ({ chatID }) => {
+const ChatHistory = () => {
   const styles = useStyles()
-  return chatID ? (
+  let { chatID, groupID } = useParams()
+  const { listGroup } = useSelector((state) => state.groups)
+  const { AllUsers } = useSelector((state) => state.users)
+  console.log("aa chatID: ", chatID)
+  console.log("aa groupID: ", groupID)
+
+  // if (!chatID) {
+  //   chatID = Object.values(listGroup).map((item) => item)?.[0]?.channelName
+  // }
+  return chatID || groupID ? (
     <div className={styles.flex}>
       <div>
         <div>
-          <ChatDialog chatID={chatID} />
+          <ChatDialog id={chatID ? chatID : groupID} />
         </div>
 
         <div ContainerProps={{ disableGutters: true }}>
           <Box display={"flex"} alignItems={"center"} p={1}>
-            <ChatBar chatID={chatID} />
+            <ChatBar id={chatID ? chatID : groupID} />
           </Box>
         </div>
       </div>
       <div sidebarId={"secondarySidebar"} classes={{ paper: styles.insetBody }}>
-        <ChatSettings chatID={chatID} />
+        <ChatSettings id={chatID ? chatID : groupID} />
       </div>
     </div>
   ) : (

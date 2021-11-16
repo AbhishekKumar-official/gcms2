@@ -129,7 +129,7 @@ export const menueItem = {
           id: "chat",
           title: "Chat",
           type: "item",
-          url: "/chat/direct-messages",
+          url: "/chat/direct-messages?isDefault=true",
           icon: icons["SpeakerNotesOutlinedIcon"],
           chip: {
             label: "Pro",

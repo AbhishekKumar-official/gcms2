@@ -2,6 +2,7 @@ import { usersActionType } from "./userTypes"
 const initialState = {
   currentUser: {},
   loading: false,
+  AllUsers: [],
 }
 
 const setUserReducer = (state = initialState, action) => {
@@ -21,6 +22,12 @@ const setUserReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      }
+    case usersActionType.FETCH_ALL_USERS:
+      return {
+        ...state,
+        loading: false,
+        AllUsers: action.payload,
       }
 
     default:

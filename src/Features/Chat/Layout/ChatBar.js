@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const ChatBar = ({ chatID }) => {
+const ChatBar = ({ id }) => {
   const styles = useStyles()
   return (
     <>
@@ -42,7 +42,7 @@ const ChatBar = ({ chatID }) => {
 
       <InputBase
         className={styles.input}
-        placeholder={chatID}
+        placeholder={id}
         endAdornment={
           <InputAdornment position={"end"}>
             <TagFaces className={styles.icon} />

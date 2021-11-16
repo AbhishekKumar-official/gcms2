@@ -76,14 +76,14 @@ const Setting = ({ label, icon, blue }) => {
   )
 }
 
-const ChatSettings = ({ chatID }) => {
+const ChatSettings = ({ id }) => {
   const styles = useStyles()
   return (
     <div>
       <Box minWidth={"300px"} p={"14px 14px 16px 14px"} textAlign={"center"}>
         <Avatar className={styles.avatar} src={"https://i.pravatar.cc/300?img=13"} />
         <Typography className={styles.name} variant={"h1"} align={"center"}>
-          {`${chatID}`}
+          {`${id}`}
         </Typography>
       </Box>
       <Divider />

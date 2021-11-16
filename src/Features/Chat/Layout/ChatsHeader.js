@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { makeStyles } from "@mui/styles"
 import Box from "@mui/material/Box"
-
+import { useSelector } from "react-redux"
 import Typography from "@mui/material/Typography"
 import { NavLink } from "react-router-dom"
 
@@ -26,20 +26,25 @@ const useStyles = makeStyles(() => ({
 
 const ChatsHeader = () => {
   const styles = useStyles()
+  const { AllUsers } = useSelector((state) => state.users)
+  const { listGroup } = useSelector((state) => state.groups)
+
+  const [chatID, setChatID] = useState(Object.values(AllUsers).map((item, index) => item)?.[0]?.username ?? "")
+  const [groupID, setGroupID] = useState(Object.values(listGroup).map((item, index) => item)?.[0]?.channelName ?? "")
+
   return (
     <>
       <Box minWidth={"300px"} p={"16px 0px 8px 0px"}>
         <div className={styles.flex}>
           <Typography variant={"h5"} className={styles.middle}>
-            <NavLink to="direct-messages">Chats</NavLink>
+            <NavLink to={`direct-messages/${chatID}`}>Chats</NavLink>
           </Typography>
           <Typography variant={"h5"} className={styles.middle}>
-            <NavLink to="group-messages">Groups</NavLink>
+            <NavLink to={`group-messages/${groupID}`}>Groups</NavLink>
           </Typography>
         </div>
       </Box>
 
-      {/* <ChatList listGroup={listGroup} /> */}
       <Outlet />
     </>
   )

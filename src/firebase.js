@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth"
 import { getDatabase, ref, push, onValue } from "firebase/database"
 import { setGroupList } from "./Views/Chat/Groups/redux/groupActions"
+import { fetchAllUsers } from "./Features/Users/redux/usersActions"
 import md5 from "md5"
 const firebaseConfig = {
   apiKey: "AIzaSyCDCdokzvjQ46QGMzrE0XLS9g7QRhmcWG0",
@@ -57,6 +58,14 @@ export const fetchAllGroups = (dispatch) => {
     dispatch(setGroupList(data))
   })
 }
+
+export const fetchAllPeople = (dispatch) => {
+  onValue(refPeopleCollection, (snapshot) => {
+    const data = snapshot.val()
+    dispatch(fetchAllUsers(data))
+  })
+}
+
 const handleUpdateUserProfile = (firstname) => {
   updateProfile(firebaseAuth.currentUser, {
     displayName: firstname,
