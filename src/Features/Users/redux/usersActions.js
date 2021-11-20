@@ -43,3 +43,11 @@ export const fetchAllUsers = (users) => {
     })
   }
 }
+export const fetchAllChats = (users) => {
+  return async (dispatch) => {
+    dispatch({
+      type: usersActionType.FETCH_ALL_CHATS,
+      payload: users,
+    })
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react"
-import { useRoutes } from "react-router-dom"
+import { useRoutes, matchRoutes, useLocation } from "react-router-dom"
 
 //importing Layouts
 import PublicLayout from "../Layouts/PublicLayout/PublicLayout"
@@ -24,6 +24,8 @@ import ChatList from "../Features/Chat/Layout/ChatList"
 import GroupList from "../Features/Chat/Layout/GroupList"
 
 const Router = () => {
+  const location = useLocation()
+
   let routes = [
     {
       path: "/",
@@ -172,6 +174,8 @@ const Router = () => {
     { path: "*", element: <PageNotFound /> },
   ]
 
+  const rm = matchRoutes(routes, location)
+  console.log("rm: ", rm)
   let element = useRoutes(routes)
 
   return element

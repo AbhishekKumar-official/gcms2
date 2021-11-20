@@ -4,4 +4,5 @@ export const usersActionType = {
   SET_USER_FAILURE: "SET_USER_FAILURE",
 
   FETCH_ALL_USERS: "FETCH_ALL_USERS",
+  FETCH_ALL_CHATS: "FETCH_ALL_CHATS",
 }

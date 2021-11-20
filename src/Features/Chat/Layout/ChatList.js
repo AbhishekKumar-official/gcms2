@@ -11,14 +11,12 @@ const ChatList = () => {
   const { search } = useLocation()
   console.log("search: ", search)
   const navigator = useNavigate()
-  useEffect(() => {
-    let abc = new URLSearchParams(search)
-    console.log("abc: ", abc.get("isDefault"))
 
-    if (abc.get("isDefault")) {
+  useEffect(() => {
+    if (search) {
       navigator(`/chat/direct-messages/${Object.values(AllUsers)?.[0]?.username ?? ""}`)
     }
-  }, [])
+  }, [search])
 
   return (
     <>

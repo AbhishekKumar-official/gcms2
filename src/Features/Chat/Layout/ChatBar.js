@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { makeStyles, styled } from "@mui/styles"
 import InputBase from "@mui/material/InputBase"
 import InputAdornment from "@mui/material/InputAdornment"
@@ -6,8 +6,10 @@ import AddCircle from "@mui/icons-material/AddCircle"
 import Gif from "@mui/icons-material/Gif"
 import Image from "@mui/icons-material/Image"
 import Note from "@mui/icons-material/Note"
-import ThumbUp from "@mui/icons-material/ThumbUp"
+
 import TagFaces from "@mui/icons-material/TagFaces"
+import { handleSendMessage } from "../../../firebase"
+import { useParams } from "react-router-dom"
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -31,7 +33,31 @@ const useStyles = makeStyles(() => ({
 }))
 
 const ChatBar = ({ id }) => {
+  // const {params} = useParams()
+  // console.log("paramsChatBar: ", params)
+  const [messageDescription, setMessageDescription] = useState("")
+  const [threadID, setThreadID] = useState("")
+
+  const user = JSON.parse(sessionStorage.getItem("user"))
+  console.log("Chat bar: ", user)
   const styles = useStyles()
+
+  const sendMessageHandler = () => {
+    handleSendMessage(threadID, messageDescription)
+  }
+
+  useEffect(() => {
+    setThreadID(`${id > user?.uid ? id + user?.uid : id + user?.uid}`)
+    return () => {
+      setThreadID("")
+    }
+  }, [])
+
+  useEffect(() => {
+    if (id) setThreadID(`${id > user?.uid ? id + user?.uid : id + user?.uid}`)
+  }, [id])
+
+  console.log("threadID: ", threadID)
   return (
     <>
       <AddCircle className={styles.icon} />
@@ -43,13 +69,17 @@ const ChatBar = ({ id }) => {
       <InputBase
         className={styles.input}
         placeholder={id}
+        name="messageDescription"
+        value={messageDescription}
+        onChange={(e) => setMessageDescription(e.target.value)}
         endAdornment={
           <InputAdornment position={"end"}>
             <TagFaces className={styles.icon} />
           </InputAdornment>
         }
       />
-      <ThumbUp className={styles.icon} />
+      {/* <ThumbUp className={styles.icon} onnClick={() => sendMessageHandler()} /> */}
+      <button onClick={() => sendMessageHandler()}>Send</button>
     </>
   )
 }

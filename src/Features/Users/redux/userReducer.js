@@ -3,6 +3,7 @@ const initialState = {
   currentUser: {},
   loading: false,
   AllUsers: [],
+  AllChats: [],
 }
 
 const setUserReducer = (state = initialState, action) => {
@@ -28,6 +29,12 @@ const setUserReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         AllUsers: action.payload,
+      }
+    case usersActionType.FETCH_ALL_CHATS:
+      return {
+        ...state,
+        loading: false,
+        AllChats: action.payload,
       }
 
     default:

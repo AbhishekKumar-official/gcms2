@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth"
-import { getDatabase, ref, push, onValue } from "firebase/database"
+import { getDatabase, ref, push, onValue, set, child } from "firebase/database"
 import { setGroupList } from "./Views/Chat/Groups/redux/groupActions"
-import { fetchAllUsers } from "./Features/Users/redux/usersActions"
+import { fetchAllUsers, fetchAllChats } from "./Features/Users/redux/usersActions"
 import md5 from "md5"
+import { stringify } from "@firebase/util"
 const firebaseConfig = {
   apiKey: "AIzaSyCDCdokzvjQ46QGMzrE0XLS9g7QRhmcWG0",
   authDomain: "slack-412f3.firebaseapp.com",
@@ -21,6 +22,7 @@ const firebaseAuth = getAuth()
 const firebaseDatabase = getDatabase()
 const refPeopleCollection = ref(firebaseDatabase, "people")
 const refGroupsCollection = ref(firebaseDatabase, "groups")
+const refThreadsCollection = ref(firebaseDatabase, "threads")
 
 export const hanndleCreateUserWithEmailAndPassword = async (email, password, firstname) => {
   createUserWithEmailAndPassword(firebaseAuth, email, password)
@@ -63,6 +65,36 @@ export const fetchAllPeople = (dispatch) => {
   onValue(refPeopleCollection, (snapshot) => {
     const data = snapshot.val()
     dispatch(fetchAllUsers(data))
+  })
+}
+export const fetchAllChat = (chatID, dispatch) => {
+  const refParticularPeople = ref(firebaseDatabase, "threads/" + chatID)
+
+  return onValue(
+    refParticularPeople,
+    (snapshot) => {
+      if (snapshot && snapshot.val()) {
+        const snapshotToArray = Object.keys(snapshot.val()).map((key) => snapshot.val()[key])
+        if (snapshotToArray && snapshotToArray.length > 0) {
+          dispatch(fetchAllChats(snapshotToArray))
+        }
+      }
+      // const snapshotToArray = Object.keys(snapshot.val()).map((key) => snapshot.val()[key])
+      // if (snapshotToArray && snapshotToArray.length > 0) {
+
+      // }
+      // console.log("snapshotToArray: ", snapshotToArray)
+    },
+    {
+      onlyOnce: true,
+    }
+  )
+}
+export const hasParticularPerson = (id) => {
+  const refParticularPeople = ref(firebaseDatabase, "groups/" + id)
+  onValue(refParticularPeople, (snapshot) => {
+    const data = snapshot.val()
+    console.log("paa dataParticularChild: ", snapshot.val(), snapshot.exists())
   })
 }
 
@@ -117,3 +149,44 @@ export const hanndleUserSignOut = async (navigator) => {
       console.log("error: ", error)
     })
 }
+
+export const handleSendMessage = (threadID, messageDescription) => {
+  const refParticularPeople = ref(firebaseDatabase, "threads/" + threadID)
+
+  return onValue(
+    refParticularPeople,
+    (snapshot) => {
+      if (snapshot.exists()) {
+        push(refParticularPeople, {
+          name: firebaseAuth.currentUser.displayName,
+          id: firebaseAuth.currentUser.uid,
+          profilePic: firebaseAuth.currentUser.photoURL,
+          email: firebaseAuth.currentUser.email,
+          message: messageDescription,
+        })
+          .then((res) => console.log("EXIST", res))
+          .catch((err) => console.log(err))
+      } else {
+        set(child(refThreadsCollection, `${threadID}`), null)
+          .then(() =>
+            push(refParticularPeople, {
+              name: firebaseAuth.currentUser.displayName,
+              id: firebaseAuth.currentUser.uid,
+              profilePic: firebaseAuth.currentUser.photoURL,
+              email: firebaseAuth.currentUser.email,
+              message: messageDescription,
+            })
+          )
+          .catch((err) => console.log(err))
+      }
+    },
+    {
+      onlyOnce: true,
+    }
+  )
+}
+
+//---utility function----//
+
+// const snapshotToArray = Object.entries(snapshot.val()).map((e) => Object.assign(e[1], { key: e[0] }))
+// const snapshotToArray = Object.keys(snapshot.val()).map((key) => snapshot.val()[key])

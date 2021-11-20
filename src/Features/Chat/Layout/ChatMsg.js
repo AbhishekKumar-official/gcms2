@@ -92,6 +92,7 @@ const useStyles = makeStyles(() => {
 })
 
 const ChatMsg = ({ avatar, messages, side }) => {
+  console.log("messagessdsadsa: ", messages)
   const styles = useStyles()
   const attachClass = (index) => {
     if (index === 0) {
@@ -115,11 +116,16 @@ const ChatMsg = ({ avatar, messages, side }) => {
             // eslint-disable-next-line react/no-array-index-key
             <div key={msg.id || i} className={cx(styles.row, styles[`${side}Row`])}>
               <div className={cx(styles.msgBox, styles[`${side}MsgBox`])}>
-                {typeof msg === "string" && (
+                <Typography align={"left"} className={cx(styles.msg, styles[side], attachClass(i))}>
+                  {msg.message}
+                </Typography>
+
+                {/* {typeof msg === "string" && (
                   <Typography align={"left"} className={cx(styles.msg, styles[side], attachClass(i))}>
-                    {msg}
+                    {msg.message}
                   </Typography>
-                )}
+                )} */}
+
                 {typeof msg === "object" && msg.type === "image" && <img className={styles.image} alt={msg.alt} {...msg} />}
                 <IconButton className={styles.iconBtn}>
                   <TagFaces />
