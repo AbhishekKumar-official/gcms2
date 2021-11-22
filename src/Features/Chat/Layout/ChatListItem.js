@@ -67,12 +67,12 @@ const useStyles = makeStyles(() => ({
 
 const ListItemLink = (props) => {
   const styles = useStyles()
-  const { channelName, profile_picture, username } = props
+  const { channelName, profile_picture, id } = props
 
   const renderLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => {
-        return <RouterLink to={username ? username : channelName} className={(metaData) => (metaData.isActive ? "sel" : "")} ref={ref} {...itemProps} role={undefined} />
+        return <RouterLink to={id ? id : channelName} className={(metaData) => (metaData.isActive ? "sel" : "")} ref={ref} {...itemProps} role={undefined} />
       }),
     [channelName]
   )
@@ -81,7 +81,7 @@ const ListItemLink = (props) => {
     <ListItem button component={renderLink} className={cx(styles.root, styles.rootHover)}>
       <Avatar src={profile_picture ? profile_picture : channelName} className={styles.avatar} />
 
-      <ListItemText primary={username ? username : channelName} secondary={username ? username : channelName} primaryTypographyProps={{ noWrap: true }} secondaryTypographyProps={{ noWrap: true }} classes={{ primary: styles.primary, secondary: styles.secondary }} />
+      <ListItemText primary={id ? id : channelName} secondary={id ? id : channelName} primaryTypographyProps={{ noWrap: true }} secondaryTypographyProps={{ noWrap: true }} classes={{ primary: styles.primary, secondary: styles.secondary }} />
       <Box position={"relative"}>
         <MoreHoriz className={styles.more} />
       </Box>

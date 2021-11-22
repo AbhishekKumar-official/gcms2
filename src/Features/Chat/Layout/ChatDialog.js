@@ -23,11 +23,8 @@ const ChatDialog = ({ id }) => {
   console.log("AllChats: ", AllChats)
   return (
     <Box p={"16px 30px 12px 10px"}>
-      <ChatMsg avatar={AVATAR} messages={["Hi Jenny, How r u today?", "Did you train yesterday", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida."]} />
       <Typography className={styles.date}>FRI 1:46 PM</Typography>
       <ChatMsg side={"right"} messages={AllChats} />
-      <Typography className={styles.date}>FRI 4:18 PM</Typography>
-      <ChatMsg avatar={AVATAR} messages={AllChats} />
     </Box>
   )
 }

@@ -10,7 +10,7 @@ const App = () => {
     fetchAllGroups(dispatch)
     fetchAllPeople(dispatch)
     hasParticularPerson("-MnMAwTcBsuJJ58_7kVb")
-    fetchAllChat("Ashu40giw1CLs8h7uSoZgLfhJHK1Ccv1", dispatch)
+    fetchAllChat("Pr8AmMv003cL6VNzvuKEcm33L5i2CnY0ZJnawDTmnUaeJFNqPMeu1BK2", dispatch)
   }, [dispatch])
 
   return <Router />

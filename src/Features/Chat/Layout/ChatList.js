@@ -7,14 +7,14 @@ import MessengerSearch from "./MessengerSearch"
 
 const ChatList = () => {
   const { AllUsers } = useSelector((state) => state.users)
-  console.log("AllUsers?.[0]: ", Object.values(AllUsers)?.[0]?.username)
+  console.log("AllUsers?.[0]: ", Object.values(AllUsers)?.[0]?.id)
   const { search } = useLocation()
   console.log("search: ", search)
   const navigator = useNavigate()
 
   useEffect(() => {
     if (search) {
-      navigator(`/chat/direct-messages/${Object.values(AllUsers)?.[0]?.username ?? ""}`)
+      navigator(`/chat/direct-messages/${Object.values(AllUsers)?.[0]?.id ?? ""}`)
     }
   }, [search])
 

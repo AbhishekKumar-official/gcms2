@@ -109,6 +109,7 @@ const handleUpdateUserProfile = (firstname) => {
         username: firstname,
         email: firebaseAuth.currentUser.email,
         profile_picture: firebaseAuth.currentUser.photoURL,
+        id: firebaseAuth.currentUser.uid,
       })
     })
     .catch((err) => console.log(err))

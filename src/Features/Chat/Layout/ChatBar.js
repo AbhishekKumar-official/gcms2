@@ -47,14 +47,14 @@ const ChatBar = ({ id }) => {
   }
 
   useEffect(() => {
-    setThreadID(`${id > user?.uid ? id + user?.uid : id + user?.uid}`)
+    setThreadID(`${id > user?.uid ? id + user?.uid : user?.uid + id}`)
     return () => {
       setThreadID("")
     }
   }, [])
 
   useEffect(() => {
-    if (id) setThreadID(`${id > user?.uid ? id + user?.uid : id + user?.uid}`)
+    if (id) setThreadID(`${id > user?.uid ? id + user?.uid : user?.uid + id}`)
   }, [id])
 
   console.log("threadID: ", threadID)

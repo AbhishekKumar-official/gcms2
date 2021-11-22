@@ -92,20 +92,21 @@ const useStyles = makeStyles(() => {
 })
 
 const ChatMsg = ({ avatar, messages, side }) => {
+  const user = JSON.parse(sessionStorage.getItem("user"))
   console.log("messagessdsadsa: ", messages)
   const styles = useStyles()
   const attachClass = (index) => {
     if (index === 0) {
-      return styles[`${side}First`]
+      return styles[`${user?.uid ? "right" : "left"}First`]
     }
     if (index === messages.length - 1) {
-      return styles[`${side}Last`]
+      return styles[`${user?.uid ? "right" : "left"}Last`]
     }
     return ""
   }
   return (
-    <Grid container spacing={2} justify={side === "right" ? "flex-end" : "flex-start"}>
-      {side === "left" && (
+    <Grid container spacing={2} justify={user?.uid ? "flex-end" : "flex-start"}>
+      {user?.uid === "left" && (
         <Grid item>
           <Avatar src={avatar} className={cx(styles.avatar)} />
         </Grid>
@@ -114,17 +115,11 @@ const ChatMsg = ({ avatar, messages, side }) => {
         {messages.map((msg, i) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <div key={msg.id || i} className={cx(styles.row, styles[`${side}Row`])}>
-              <div className={cx(styles.msgBox, styles[`${side}MsgBox`])}>
-                <Typography align={"left"} className={cx(styles.msg, styles[side], attachClass(i))}>
+            <div key={msg.id || i} className={cx(styles.row, styles[`${user?.uid === msg.id ? "right" : "left"}Row`])}>
+              <div className={cx(styles.msgBox, styles[`${user?.uid === msg.id ? "right" : "left"}MsgBox`])}>
+                <Typography align={"left"} className={cx(styles.msg, styles[user?.uid === msg.id ? "right" : "left"], attachClass(i))}>
                   {msg.message}
                 </Typography>
-
-                {/* {typeof msg === "string" && (
-                  <Typography align={"left"} className={cx(styles.msg, styles[side], attachClass(i))}>
-                    {msg.message}
-                  </Typography>
-                )} */}
 
                 {typeof msg === "object" && msg.type === "image" && <img className={styles.image} alt={msg.alt} {...msg} />}
                 <IconButton className={styles.iconBtn}>

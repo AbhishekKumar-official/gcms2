@@ -27,10 +27,10 @@ const useStyles = makeStyles(() => ({
 const ChatsHeader = () => {
   const styles = useStyles()
   const { AllUsers } = useSelector((state) => state.users)
-  const { listGroup } = useSelector((state) => state.groups)
+  // const { listGroup } = useSelector((state) => state.groups)
 
-  const [chatID, setChatID] = useState(Object.values(AllUsers)?.[0]?.username ?? "")
-  const [groupID, setGroupID] = useState(Object.values(listGroup)?.[0]?.channelName ?? "")
+  const [chatID, setChatID] = useState(Object.values(AllUsers)?.[0]?.id ?? "")
+  // const [groupID, setGroupID] = useState(Object.values(listGroup)?.[0]?.channelName ?? "")
 
   return (
     <>
@@ -39,9 +39,9 @@ const ChatsHeader = () => {
           <Typography variant={"h5"} className={styles.middle}>
             <NavLink to={`direct-messages/${chatID}`}>Chats</NavLink>
           </Typography>
-          <Typography variant={"h5"} className={styles.middle}>
+          {/* <Typography variant={"h5"} className={styles.middle}>
             <NavLink to={`group-messages/${groupID}`}>Groups</NavLink>
-          </Typography>
+          </Typography> */}
         </div>
       </Box>
 
